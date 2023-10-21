@@ -12,7 +12,7 @@ Main() {
 	error() {
 		# unreachable commands here??
 		# shellcheck disable=SC2317
-		printf "$(tput setaf 1)error:$(tput sgr0) %s\n" "$*"
+		>&2 printf "$(tput setaf 1)error:$(tput sgr0) %s\n" "$*"
 	}
 
 	local -A __argscript_args__=(
@@ -32,10 +32,10 @@ Execute a script template file.
 
 A template file at it's topmost level must have the following functions:
 
-Usage:    A function that shows usage information with each option on it's own
+Usage():    A function that shows usage information with each option on it's own
           line preceded by two spaces.
-Argument: A callback function the accepts an argument name, type and value.
-Main:     The primary script function.
+Argument(): A callback function the accepts an argument name, type and value.
+Main():     The primary script function.
 EOD
 	}
 
@@ -71,7 +71,7 @@ EOD
 	fi
 
 	# clean the environment
-	unset -f Usage Argument
+	unset -f Usage Argument error
 
 	#
 	# include the template
@@ -87,6 +87,7 @@ EOD
 
 		return 0
 	fi
+	unset __argscript_args__
 
 	#
 	# parse the arguments
@@ -99,8 +100,8 @@ EOD
 		# special code 255 means exit without error
 		[[ $code -eq 255 ]] && return 0 || return $code
 	fi
-	unset eaten __argscript_args__
-	unset -f error pargs
+	unset eaten
+	unset -f pargs
 
 	Main "$@"
 }
