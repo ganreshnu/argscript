@@ -99,7 +99,7 @@ EOD
 		# special code 255 means exit without error
 		[[ $code -eq 255 ]] && return 0 || return $code
 	fi
-	unset eaten
+	unset eaten __argscript_args__
 	unset -f error pargs
 
 	Main "$@"
