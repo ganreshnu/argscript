@@ -1,4 +1,4 @@
-#!/home/john/arch-linux-install/script-util/argscript.sh
+#!/bin/env argscript
 
 local argv=()
 local -A args=(
