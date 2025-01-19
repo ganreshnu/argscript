@@ -21,6 +21,9 @@ EOD
 }
 
 Argument() {
+  # $1 is the argument name which must be found in the usage text.
+  # $2 is the argument type which is expressed in the usage text.
+  # $3 is the argument value.
 	if [[ "$1" ]]; then
 		[[ "$3" ]] && args["$1"]="$3" || args["$1"]=true
 	else
